@@ -1,0 +1,68 @@
+---
+title: 雨夜
+defaults:
+  affection: 0
+  name: 旅人
+characters:
+  xue:
+    name: 小雪
+    color: "#c8a2c8"
+  me: 我
+---
+
+# 开场
+
+::bg[street]{transition=fade}
+::music[rain]
+
+雨下得很大。
+街上没有人。
+
+**小雪**{expr=smile at=left}：你好，{name|upper}。{明日|あした}也会下雨吗？
+
+**我**：你也没带伞吗？
+
+::menu{set=asked}
+
+你要怎么做？
+
+- [把伞让给她](#让伞)
+- 和她一起等雨停
+  ::set{affection="+1"}
+
+  **小雪**：嗯，一起等吧。
+- [问她的名字](#名字){if="affection >= 1"}
+
+[→](#结局)
+
+# 让伞
+
+**小雪**：谢谢你。
+
++ 你会感冒的。
+
+::set{affection="+2"}
+
+[→](#结局)
+
+# 名字
+
+**xue**：我叫小雪。
+
+[→](#结局)
+
+# 结局
+
+:::if{cond="affection >= 2"}
+**小雪**：下次见。
+::elif{cond="affection >= 1"}
+**小雪**：雨停了呢。
+::else
+雨一直下。
+:::
+
+```js
+visits = (typeof visits === "number" ? visits : 0) + 1
+```
+
+::end

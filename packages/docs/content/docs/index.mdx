@@ -1,0 +1,36 @@
+---
+title: 介绍
+description: 认识 Wovel。
+---
+
+**Wovel** 是一个 Web Native 的视觉小说引擎。剧本用 Markdown 写，画面用 DOM 和 CSS 画，游戏状态像 Git 一样一步一个提交。
+
+三条原则贯穿整个引擎：
+
+- **DOM + CSS 渲染**：对话框、菜单、立绘、背景都是 HTML 元素。浏览器原生处理中日文排版、注音、字体回退和无障碍。
+- **Markdown 剧本（MDW）**：标题是场景，段落是旁白，`**名字**：` 是台词，链接列表是选项，`::指令` 是舞台指令。剧本在 GitHub 上就能直接阅读。
+- **Git 式状态**：每推进一步产生一个不可变的提交（执行位置、变量、声明式舞台）。存档是指向提交的 ref，回滚是回到父提交。
+
+引擎用 [Effect](https://effect.website) 构建：解释器是纯函数，求值器、存储和游戏本身都是可替换的 Effect 服务。
+
+## 一个最小的剧本
+
+```md
+---
+characters:
+  xue: 小雪
+---
+
+# 开场
+
+::bg[street]{transition=fade}
+
+雨下得很大。
+
+**小雪**{expr=smile at=right}：你好。
+
+- [把伞让给她](#让伞)
+- [和她一起等雨停](#等雨)
+```
+
+接下来读[快速开始](/docs/quickstart/)，或者直接看 [MDW 剧本语法](/docs/script/)。

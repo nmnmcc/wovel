@@ -1,0 +1,97 @@
+---
+title: 雨夜
+defaults:
+  affection: 0
+  name: 旅人
+characters:
+  xue:
+    name: 小雪
+    color: "#e7b7d8"
+  me:
+    name: 我
+    color: "#9cc7e6"
+---
+
+<!-- 这是一个 MDW 剧本：标题是场景，段落是旁白，**名字**：是台词，链接列表是选项。 -->
+
+# 开场
+
+::bg[street]{transition=fade}
+
+雨下得很大。
+末班车已经开走了，站台上只剩下一盏灯。
+
+::show[xue sad]{at=right transition=dissolve}
+
+一个女孩站在屋檐下，看着雨发呆。
+
+**小雪**：……你也没赶上末班车吗？
+
+**我**：嗯。看来要等很久了。
+
+::menu{set=asked}
+
+我手里只有一把伞。
+
+- [把伞让给她](#让伞)
+- 和她一起等雨停
+  ::set{affection="+1"}
+
+  **小雪**{expr=smile}：嗯，一起等吧。
+
+  [→](#开场-问话)
+- [问她的名字](#名字){if="affection >= 1"}
+
+# 开场 问话
+
+**小雪**{expr=smile}：你是来这座城市旅行的吗？
+
+::menu{set=asked}
+
+- 是的，我叫……
+  ```js
+  name = "阿远"
+  affection += 1
+  ```
+
+  **我**：我叫{name}。
+
+  [→](#名字)
+- [还是把伞让给她吧](#让伞)
+
+# 让伞
+
+::show[xue smile]
+
+**小雪**：谢谢你。
++ 可是你会感冒的。
+
+::set{affection="+2"}
+
+[→](#结局)
+
+# 名字
+
+**xue**{expr=smile}：我叫小雪，{name}。
+
+雨好像小了一点。
+
+[→](#结局)
+
+# 结局
+
+::bg[station]{transition=dissolve}
+
+:::if{cond="affection >= 2"}
+**小雪**{expr=smile}：下次，换我请你喝热可可。
+
+**我**：一言为定。
+::elif{cond="affection >= 1"}
+**小雪**：雨停了呢。那……再见。
+::else
+::hide[xue]{transition=dissolve}
+
+雨一直下。
+:::
+
+::end

@@ -1,0 +1,40 @@
+{
+	"name": "@wovel/parser",
+	"version": "0.1.0",
+	"license": "UNLICENSED",
+	"type": "module",
+	"description": "Compiles MDW (Markdown) scripts into Wovel stories, and checks them",
+	"sideEffects": false,
+	"files": [
+		"dist",
+		"src",
+		"README.md"
+	],
+	"exports": {
+		".": "./dist/index.js"
+	},
+	"scripts": {
+		"build": "tsdown",
+		"test": "pnpm build && tsc -p tsconfig.test.json && node --test test/*.test.ts"
+	},
+	"dependencies": {
+		"@types/mdast": "4.0.4",
+		"github-slugger": "2.0.0",
+		"mdast-util-directive": "3.1.1",
+		"mdast-util-to-string": "4.0.0",
+		"remark-directive": "4.0.0",
+		"remark-frontmatter": "5.0.0",
+		"remark-gfm": "4.0.1",
+		"remark-parse": "11.0.0",
+		"unified": "11.0.5",
+		"yaml": "2.9.1"
+	},
+	"peerDependencies": {
+		"@wovel/core": "0.1.0",
+		"effect": "4.0.5"
+	},
+	"devDependencies": {
+		"@wovel/core": "workspace:*",
+		"effect": "4.0.5"
+	}
+}

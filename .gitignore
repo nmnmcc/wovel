@@ -1,0 +1,20 @@
+.devenv*
+devenv.local.nix
+devenv.local.yaml
+.direnv
+
+.pre-commit-config.yaml
+
+node_modules
+
+.cache/
+
+# Failure screenshots of the browser tests.
+.vitest/
+
+.DS_Store
+
+dist/
+
+# Local Claude Code state and session worktrees.
+.claude/

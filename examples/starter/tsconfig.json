@@ -1,0 +1,11 @@
+{
+	"extends": "../../tsconfig.base.json",
+	"compilerOptions": {
+		"composite": false,
+		"noEmit": true,
+		"tsBuildInfoFile": ".cache/build.tsbuildinfo",
+		"allowImportingTsExtensions": true,
+		"types": ["vite/client", "@wovel/vite/client"]
+	},
+	"include": ["src", "vite.config.ts"]
+}

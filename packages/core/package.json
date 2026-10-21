@@ -1,0 +1,26 @@
+{
+	"name": "@wovel/core",
+	"version": "0.1.0",
+	"license": "UNLICENSED",
+	"type": "module",
+	"description": "The Wovel story model, interpreter, and Git-style state repository, built with Effect",
+	"sideEffects": false,
+	"files": [
+		"dist",
+		"src",
+		"README.md"
+	],
+	"exports": {
+		".": "./dist/index.js"
+	},
+	"scripts": {
+		"build": "tsdown",
+		"test": "pnpm build && tsc -p tsconfig.test.json && node --test test/*.test.ts"
+	},
+	"devDependencies": {
+		"effect": "4.0.5"
+	},
+	"peerDependencies": {
+		"effect": "4.0.5"
+	}
+}
