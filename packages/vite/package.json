@@ -1,7 +1,7 @@
 {
 	"name": "@wovel/vite",
 	"version": "0.1.0",
-	"license": "UNLICENSED",
+	"license": "MIT OR Apache-2.0",
 	"type": "module",
 	"description": "A Vite plugin that compiles MDW scripts and registers game assets",
 	"sideEffects": false,
@@ -9,7 +9,9 @@
 		"dist",
 		"src",
 		"client.d.ts",
-		"README.md"
+		"README.md",
+		"LICENSE-MIT",
+		"LICENSE-APACHE"
 	],
 	"exports": {
 		".": "./dist/index.js",

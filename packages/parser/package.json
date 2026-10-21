@@ -1,14 +1,16 @@
 {
 	"name": "@wovel/parser",
 	"version": "0.1.0",
-	"license": "UNLICENSED",
+	"license": "MIT OR Apache-2.0",
 	"type": "module",
 	"description": "Compiles MDW (Markdown) scripts into Wovel stories, and checks them",
 	"sideEffects": false,
 	"files": [
 		"dist",
 		"src",
-		"README.md"
+		"README.md",
+		"LICENSE-MIT",
+		"LICENSE-APACHE"
 	],
 	"exports": {
 		".": "./dist/index.js"

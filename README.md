@@ -63,3 +63,9 @@ devenv shell -- pnpm -r test
 ```
 
 Read [AGENTS.md](./AGENTS.md) for the rules of the project.
+
+## License
+
+Wovel is dual licensed under the [MIT License](./LICENSE-MIT) or the [Apache License 2.0](./LICENSE-APACHE). You may pick either one.
+
+Unless you say otherwise, any contribution that you submit for inclusion in Wovel is dual licensed as above, with no extra terms.
