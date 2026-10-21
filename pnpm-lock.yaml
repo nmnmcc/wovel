@@ -115,6 +115,13 @@ importers:
         version: 8.3.4(@types/node@26.6.0)(yaml@2.9.1)
 
   packages/web:
+    dependencies:
+      '@effect/platform-browser':
+        specifier: 4.0.5
+        version: 4.0.5(effect@4.0.5)
+      foldkit:
+        specifier: 0.169.0
+        version: 0.169.0(@effect/platform-browser@4.0.5(effect@4.0.5))(effect@4.0.5)
     devDependencies:
       '@vitest/browser-playwright':
         specifier: 5.0.3
@@ -123,7 +130,7 @@ importers:
         specifier: workspace:*
         version: link:../core
       '@wovel/parser':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../parser
       effect:
         specifier: 4.0.5
@@ -321,6 +328,11 @@ packages:
   '@ctrl/tinycolor@4.2.1':
     resolution: {integrity: sha512-Vh5uy9Y1JBMId6J1f68TMXnZrTCvNdo9Fu2k0d1YnJngR+sM5kWTKl441c/3TFs+cG0NWOjRWgQ/iaWhbYx+7A==}
     engines: {node: '>=14'}
+
+  '@effect/platform-browser@4.0.5':
+    resolution: {integrity: sha512-o3H75xA91nkgIWOcp0XouIxxWxJEOFkTf7gG4qkQtZfy0tq46hJBI0U8jrUqsPruo2vCCNfM0yCoj5AG7F5BMQ==}
+    peerDependencies:
+      effect: ^4.0.5
 
   '@effect/platform-node-shared@4.0.5':
     resolution: {integrity: sha512-a8rCdEkfZBGe9C6bsIjxVZuRp73svIyK5IHwHdDAVsvZXjrbkxusfI+rZ8WlX31RP1mKizwI/E72GQTNfdMWHw==}
@@ -1224,6 +1236,10 @@ packages:
     resolution: {integrity: sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==}
     engines: {node: '>=0.12'}
 
+  entities@8.1.0:
+    resolution: {integrity: sha512-kxL7msIffSuh9aaFAMD7rxAIuTRMAHMeBtgHW2yUdWw732ZNh4MehkF2gdjvtdmikkaIP9bFDDJOPlsvm7avrA==}
+    engines: {node: '>=20.19.0'}
+
   es-module-lexer@2.3.2:
     resolution: {integrity: sha512-poHGpORABojJJucnV9KbOavETW8lBVnphkW77ER5/BQ5Fz7oXSoCNek7IH3vR5nRjdsEz926ibFYX8KtLQmdyw==}
 
@@ -1283,6 +1299,13 @@ packages:
 
   fnv1a-64@0.1.2:
     resolution: {integrity: sha512-mJbcILTPybAR1jdOwt/lVv8N2cffeJFFP+gVbSAwLEx1ujXH27RpPd8Rokec/KX9c76UYIB6Co+H4lQzxPnJfA==}
+
+  foldkit@0.169.0:
+    resolution: {integrity: sha512-7GHWKVJshNM6DLkPfybklfGpSo3wfDHtiywCP3VUmwmVTtpezeLdhwqhd67PtpDid8Ri7aVKtAykjk6m1tK/tw==}
+    engines: {node: '>=20.19.0'}
+    peerDependencies:
+      '@effect/platform-browser': 4.0.0
+      effect: 4.0.0
 
   fontace@0.4.1:
     resolution: {integrity: sha512-lDMvbAzSnHmbYMTEld5qdtvNH2/pWpICOqpean9IgC7vUbUJc3k+k5Dokp85CegamqQpFbXf0rAVkbzpyTA8aw==}
@@ -1716,6 +1739,9 @@ packages:
 
   parse-entities@4.0.2:
     resolution: {integrity: sha512-GG2AQYWoLgL877gQIKeRPGO1xF9+eG1ujIb5soS5gPvLQ1y2o8FL90w2QWNdf9I361Mpp7726c+lj3U0qK1uGw==}
+
+  parse5@8.0.1:
+    resolution: {integrity: sha512-z1e/HMG90obSGeidlli3hj7cbocou0/wa5HacvI3ASx34PecNjNQeaHNo5WIZpWofN9kgkqV1q5YvXe3F0FoPw==}
 
   pathe@2.0.3:
     resolution: {integrity: sha512-WUjGcAqP1gQacoQe+OBJsFA7Ld4DyXuUIjZ5cc75cLHvJ7dtNsTugphxIADwspS+AraAUePCKrSVtPLFj/F88w==}
@@ -2448,6 +2474,10 @@ snapshots:
       sisteransi: 1.0.5
 
   '@ctrl/tinycolor@4.2.1': {}
+
+  '@effect/platform-browser@4.0.5(effect@4.0.5)':
+    dependencies:
+      effect: 4.0.5
 
   '@effect/platform-node-shared@4.0.5(effect@4.0.5)':
     dependencies:
@@ -3262,6 +3292,8 @@ snapshots:
 
   entities@4.5.0: {}
 
+  entities@8.1.0: {}
+
   es-module-lexer@2.3.2: {}
 
   es-module-lexer@3.0.4: {}
@@ -3310,6 +3342,12 @@ snapshots:
   flattie@1.1.1: {}
 
   fnv1a-64@0.1.2: {}
+
+  foldkit@0.169.0(@effect/platform-browser@4.0.5(effect@4.0.5))(effect@4.0.5):
+    dependencies:
+      '@effect/platform-browser': 4.0.5(effect@4.0.5)
+      effect: 4.0.5
+      parse5: 8.0.1
 
   fontace@0.4.1:
     dependencies:
@@ -3985,6 +4023,10 @@ snapshots:
       is-alphanumerical: 2.0.1
       is-decimal: 2.0.1
       is-hexadecimal: 2.0.1
+
+  parse5@8.0.1:
+    dependencies:
+      entities: 8.1.0
 
   pathe@2.0.3: {}
 

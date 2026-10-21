@@ -49,7 +49,7 @@ devenv shell -- pnpm --filter @wovel/docs dev
 | ------------------ | ------------------------------------------------------------ |
 | `@wovel/core`      | Story model, interpreter, state repository, and Game service |
 | `@wovel/parser`    | MDW compiler and lint                                        |
-| `@wovel/web`       | DOM renderer, input, audio, and IndexedDB saves              |
+| `@wovel/web`       | Foldkit screen, input, audio, and IndexedDB saves            |
 | `@wovel/vite`      | Vite plugin                                                  |
 | `@wovel/docs`      | The docs site                                                |
 | `examples/starter` | An example game                                              |

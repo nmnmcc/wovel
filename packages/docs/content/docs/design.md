@@ -180,6 +180,8 @@ ATL 编译成 Web Animations API 的关键帧，转场用 View Transitions API �
 
 屏幕就是 Web Components：引擎内置一套默认组件，作者可以用纯 HTML/CSS 覆盖，也可以用任意前端框架（Lit、Vue、React、Svelte）编写，只要遵守同一个接口——读取 store、触发 Action。
 
+引擎自带的默认界面用 [Foldkit](https://foldkit.dev) 实现：它基于 Effect，采用 Elm 架构，界面状态是一个 Schema 定义的 Model，玩家的操作是 Message，与 Game 服务的交互是 Command。store 对应 Model，Action 对应 Message。
+
 | 功能             | Ren'Py 中的形式                                                                                                                            | Web 实现                                                                                                 | 难度 |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------- | ---- |
 | 屏幕定义         | `screen name(params):`                                                                                                                     | 自定义元素 `<wovel-screen-name>`，或 `screens/*.html` 模板                                               | 中   |

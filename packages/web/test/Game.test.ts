@@ -239,6 +239,52 @@ test("a step forward plays its transition; a rollback does not", async () => {
 	expect(animate.mock.calls.length).toBe(calls)
 })
 
+test("a fade darkens the screen, changes the background, and clears", async () => {
+	const animate = vi.spyOn(Element.prototype, "animate")
+	onTestFinished(() => animate.mockRestore())
+	const { root, find, shows } = await play(
+		"---\nimages:\n  bg a: /a.png\n  bg b: /b.png\n---\n# a\n\n::bg[a]\n\n一。\n\n::bg[b]{transition=fade}\n\n二。\n",
+	)
+	const overlay = () =>
+		animate.mock.contexts.filter((node) =>
+			(node as Element).classList.contains("wovel-overlay"),
+		).length
+	const backgrounds = () =>
+		Array.from(root.querySelectorAll("[data-layer=background] img"), (node) =>
+			node.getAttribute("src"),
+		)
+	await shows("一。")
+	await userEvent.click(find(".wovel-say"))
+	await shows("二。")
+	// The overlay goes dark, then clears again: two animations.
+	await expect.poll(overlay).toBe(1)
+	expect(backgrounds()).toEqual(["/a.png"])
+	await expect.poll(overlay).toBe(2)
+	await expect.poll(backgrounds).toEqual(["/b.png"])
+})
+
+test("a sprite that leaves fades out, then goes away", async () => {
+	const animate = vi.spyOn(Element.prototype, "animate")
+	onTestFinished(() => animate.mockRestore())
+	const { root, find, shows } = await play(
+		"# a\n\n::show[xue]\n\n一。\n\n::hide[xue]{transition=dissolve}\n\n二。\n",
+	)
+	const sprites = () => root.querySelectorAll(".wovel-sprite").length
+	await shows("一。")
+	expect(sprites()).toBe(1)
+	await userEvent.click(find(".wovel-say"))
+	await shows("二。")
+	await expect
+		.poll(() =>
+			animate.mock.calls.some(
+				([keyframes]) =>
+					Array.isArray(keyframes) && keyframes.at(-1)?.["opacity"] === 0,
+			),
+		)
+		.toBe(true)
+	await expect.poll(sprites).toBe(0)
+})
+
 test("music plays on its channel and stops when the game stops", async () => {
 	const playing = vi.spyOn(HTMLMediaElement.prototype, "play")
 	const pausing = vi.spyOn(HTMLMediaElement.prototype, "pause")

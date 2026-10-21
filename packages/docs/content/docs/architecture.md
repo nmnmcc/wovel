@@ -13,7 +13,7 @@ description: 剧本怎样变成画面，状态怎样变成提交。
                Game 服务 ──Repository──▶ Persistence（内存 / IndexedDB）
                                    │ View 流
                                    ▼
-                       @wovel/web Renderer（DOM diff）
+                  @wovel/web Renderer（Foldkit 程序）
 ```
 
 ## Story
@@ -68,6 +68,13 @@ JS 表达式和代码块交给 **Evaluator** 服务执行。默认实现用 `wit
 
 ## Renderer
 
-`@wovel/web` 的 Renderer 订阅 `changes`，把舞台 diff 到 DOM：背景和立绘按标签复用元素，新游戏（包括重新开始）、向前推进一步和前滚时，台词逐字打出，并播放转场和音效；回滚和读档直接跳到结果。`Game` 的每个画面都带有 `move`，说明它是怎么来的（`start`、`step`、`rollback`、`rollforward`、`load`），Renderer 据此决定，不用自己猜。打字机效果按字素簇逐个显示，避免拆散表情符号。键盘、鼠标、滚轮先变成语义动作，放进一个队列。新画面和动作由同一个 fiber 按到达顺序处理，所以动作总是作用在最新显示的画面上，转场中连点也不会跳过台词。
+`@wovel/web` 的 Renderer 是一个 [Foldkit](https://foldkit.dev) 程序。Foldkit 基于 Effect，采用 Elm 架构：整个画面的状态是一个用 Schema 定义的 Model，发生的事情都是 Message，纯函数 `update` 算出下一个 Model，纯函数 `view` 把 Model 画成虚拟 DOM，再由 Foldkit 对比出差异，只改动变了的 DOM 节点。
 
-DOM 节点、事件监听和音频元素都挂在 Scope 上，关闭 Scope 就全部清理。`start()` 是唯一运行 Effect 的地方。游戏出错时，错误会显示在页面上并写进日志；`stop()` 只是中断，不算错误。
+- **Model**：最近一个画面的等待状态（台词、菜单、暂停、结束）和舞台、打字机进度、正在淡出的立绘、`fade` 转场的阶段、历史面板、提示、错误信息，以及标签文字等设置。游戏状态本身不在这里，仍然在 `Game` 里。
+- **Subscription**：订阅 `Game` 的 `changes`，每个新画面变成一条 `ChangedView` 消息；打字机在逐字显示时按速度发出 `TickedTypewriter`。
+- **Command**：推进、选择、回滚、前滚、存档、读档、读取历史、重新开始都是 Command，在里面调用 `Game` 服务。失败会变成 `FailedGameAction` 消息，错误显示在画面上并写进日志。播放音频和给菜单设置焦点也是 Command。
+- **Mount**：动画属于具体的元素。新出现的背景和立绘在插入 DOM 时用 Web Animations API 淡入，离开的立绘淡出后才移除，`fade` 的遮罩先变黑、换舞台、再变亮。键盘和滚轮也由游戏根元素上的 Mount 读取，因为它们需要事件目标和滚动方向。
+
+`Game` 的每个画面都带有 `move`，说明它是怎么来的（`start`、`step`、`rollback`、`rollforward`、`load`）。新游戏（包括重新开始）、向前推进一步和前滚时，台词逐字打出，并播放转场和音效；回滚和读档直接跳到结果。打字机效果按字素簇逐个显示，避免拆散表情符号。点击、空格和回车先补完正在打出的台词，再推进。
+
+`Game` 服务和音频播放器作为 Foldkit 的 resources 提供给 Command。Renderer 在自己的 fiber 里运行这个 Foldkit 程序，所以 DOM 节点、事件监听、动画和音频元素都挂在 Scope 上，关闭 Scope 就全部清理。`start()` 是唯一运行 Effect 的地方。`stop()` 只是中断，不算错误。如果 `update` 或 `view` 出了程序错误，Foldkit 会停下并显示错误信息。

@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"license": "MIT OR Apache-2.0",
 	"type": "module",
-	"description": "Renders a Wovel game to the DOM and reads player input",
+	"description": "Renders a Wovel game to the DOM with Foldkit and reads player input",
 	"sideEffects": false,
 	"files": [
 		"dist",
@@ -30,5 +30,9 @@
 	"peerDependencies": {
 		"@wovel/core": "0.1.0",
 		"effect": "4.0.5"
+	},
+	"dependencies": {
+		"@effect/platform-browser": "4.0.5",
+		"foldkit": "0.169.0"
 	}
 }
